@@ -6,13 +6,12 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT,
-    "role" "Role" NOT NULL DEFAULT E'User',
-
+    "role" "Role" NOT NULL DEFAULT 'User',
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Post" (
+CREATE TABLE "Products" (
     "id" SERIAL NOT NULL,
     "title" VARCHAR(255) NOT NULL,
     "published" BOOLEAN NOT NULL DEFAULT false,
@@ -27,4 +26,4 @@ CREATE TABLE "Post" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Products" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;

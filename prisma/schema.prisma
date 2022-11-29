@@ -6,26 +6,44 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  role  Role    @default(User)
-  posts Post[]
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  name      String?
+  role      Role       @default(User)
+  posts     Products[]
 }
 
-model Post {
+model Products {
   id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
-  published Boolean  @default(false)
+  prodName  String
+  prodDesc  String
+  prodPrice Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  seller    Seller   @relation(fields: [sellerId], references: [id])
+  sellerId  Int
+
+}
+
+model Seller {
+  id         Int        @id @default(autoincrement())
+  sellerName String
+  sellerDesc String
+  location   String
+  address    String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  Products   Products[]
 }
 
 enum Role {

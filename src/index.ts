@@ -1,114 +1,29 @@
-import "dotenv/config";
-import express from "express";
-import { PrismaClient } from "@prisma/client";
+import express from 'express';
+import 'express-async-errors';
+import { NotFoundError } from './errors/not-found-error';
+import errorHandler from './middlewares/error-handler';
+import authRoutes from './routes/auth';
 
+const port = process.env.PORT || 8080;
+
+// let's initialize our express app
 const app = express();
-const prisma = new PrismaClient();
 
+// let's parse our incoming request with JSON payload using the express.json() middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// get all posts
-app.get("/posts", async (req, res, next) => {
-  try {
-    const posts = await prisma.post.findMany({
-      where: {
-        published: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+// add our routes
+app.use('/api/v1/auth', authRoutes);
 
-    res.json({ posts });
-  } catch (error: any) {
-    next(error.message);
-  }
+// catch all route
+app.all('*', async () => {
+  throw new NotFoundError();
 });
 
-// create a posts
-app.post("/posts", async (req, res, next) => {
-  try {
-    const post = await prisma.post.create({
-      data: { authorId: 1, ...req.body },
-    });
+// add our error handler middleware
+app.use(errorHandler);
 
-    res.json({ post });
-  } catch (error: any) {
-    next(error.message);
-  }
-});
-
-// get a post by id
-app.get("/posts/:id", async (req, res, next) => {
-  try {
-    const post = await prisma.post.findUnique({
-      where: {
-        id: Number(req.params.id),
-      },
-    });
-
-    res.json({ post });
-  } catch (error: any) {
-    next(error.message);
-  }
-});
-
-// update a post
-app.patch("/posts/:id", async (req, res, next) => {
-  try {
-    const post = await prisma.post.update({
-      where: {
-        id: Number(req.params.id),
-      },
-      data: req.body,
-    });
-
-    res.json({ post });
-  } catch (error: any) {
-    next(error.message);
-  }
-});
-
-// delete a post
-app.delete("/posts/:id", async (req, res, next) => {
-  try {
-    await prisma.post.delete({
-      where: {
-        id: Number(req.params.id),
-      },
-    });
-
-    res.sendStatus(200);
-  } catch (error: any) {
-    next(error.message);
-  }
-});
-
-// get a user's posts
-app.get("/users/:id/posts", async (req, res, next) => {
-  try {
-    const usersWithPosts = await prisma.user.findUnique({
-      where: {
-        id: Number(req.params.id),
-      },
-      include: {
-        posts: {
-          where: {
-            published: true,
-          },
-        },
-      },
-    });
-
-    const posts = usersWithPosts?.posts;
-
-    res.json({ posts });
-  } catch (error: any) {
-    next(error.message);
-  }
-});
-
-app.listen(3000, () => {
-  console.log("App listening on port 3000");
+// listen to our express app
+app.listen(port, () => {
+  console.log(`Our Application is up and running on port ${port}`);
 });
