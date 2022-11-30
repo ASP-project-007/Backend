@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 type User = {
-  id: string;
+  id: number;
   email: string;
 };
 

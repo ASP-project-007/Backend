@@ -18,7 +18,7 @@ model User {
   updatedAt DateTime   @updatedAt
   name      String?
   role      Role       @default(User)
-  posts     Products[]
+  products  Products[]
 }
 
 model Products {
