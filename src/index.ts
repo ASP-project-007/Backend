@@ -15,7 +15,7 @@ app.use(express.json());
 
 // add our routes
 app.use('/api/v1/auth', authRoutes);
-// app.use('/api/v1/products', productsRoutes);
+app.use('/api/v1/product', productsRoutes);
 
 // catch all route
 app.all('*', async () => {

@@ -26,7 +26,7 @@ model Products {
   id        Int      @id @default(autoincrement())
   prodName  String
   prodDesc  String
-  prodPrice Int
+  prodPrice Float
   images    String   @default("NA")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -57,6 +57,7 @@ model Cart {
   productId Int
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
+  quantity  Int @default(1)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
