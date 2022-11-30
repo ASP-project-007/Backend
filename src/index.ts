@@ -19,16 +19,16 @@ app.use(express.json());
 
   
 
-const options = {
-  cert: fs.readFileSync("/home/ec2-user/Backend/cert.pem"),
-  key: fs.readFileSync("/home/ec2-user/Backend/key.pem")
-};
+// const options = {
+//   cert: fs.readFileSync("/home/ec2-user/Backend/cert.pem"),
+//   key: fs.readFileSync("/home/ec2-user/Backend/key.pem")
+// };
 
 app.use(cors({
   origin: '*'
 }));
 
-app.use(
+app.use(a
   "/docs",
   swaggerUi.serve,
   swaggerUi.setup(undefined, {
