@@ -28,7 +28,7 @@ app.use(cors({
   origin: '*'
 }));
 
-app.use(a
+app.use(
   "/docs",
   swaggerUi.serve,
   swaggerUi.setup(undefined, {
