@@ -3,6 +3,7 @@ import 'express-async-errors';
 import { NotFoundError } from './errors/not-found-error';
 import errorHandler from './middlewares/error-handler';
 import authRoutes from './routes/auth';
+import productsRoutes from './routes/products';
 
 const port = process.env.PORT || 8080;
 
@@ -14,7 +15,7 @@ app.use(express.json());
 
 // add our routes
 app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/products', authRoutes);
+// app.use('/api/v1/products', productsRoutes);
 
 // catch all route
 app.all('*', async () => {

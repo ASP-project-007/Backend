@@ -13,17 +13,21 @@ async function run() {
   // });
   // console.log({ user });
 
-  const user = await prisma.user.create({
-    data: {
-      email: "rajes@gmail.com",
-      name: "Jason",
-      password:"password",
-      role:"Admin",
+  // const user = await prisma.user.create({
+  //   data: {
+  //     email: "rajes@gmail.com",
+  //     name: "Jason",
+  //     password:"password",
+  //     role:"Admin",
       
-    },
-  });
-  console.log({ user });
+  //   },
+  // });
+  // console.log({ user });
 
+  // creating sellers data from the sellers table
+
+  // 
+  
 }
 
 run()

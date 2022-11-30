@@ -1,15 +1,17 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { signIn, signUp, authUser } from '../controllers';
-import { Products } from '../controllers/products';
+import { ProductsSearch } from '../controllers/products';
 import isAuthenticated from '../middlewares/is-Authenticated';
 import { validateRequest } from '../middlewares/validate-request';
-
+import { AddToCart } from '../controllers/products';
 const router = Router();
 
-
 // get auth user
-router.get('/product', Products);
+router.post('/product/search', ProductsSearch);
+
+router.post('/product/addtoCard', AddToCart);
+
 // router.get('/auth-user', isAuthenticated, authUser);
 
 
