@@ -8,7 +8,7 @@ import swaggerUi from "swagger-ui-express";
 const https = require("https");
 const fs = require("fs");
 const cors = require('cors');
-// const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
 // let's initialize our express app
 const app = express();
@@ -50,8 +50,8 @@ app.all('*', async () => {
 app.use(errorHandler);
 
 // listen to our express app
-// app.listen(port, () => {
-//   console.log(`Our Application is up and running on port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Our Application is up and running on port ${port}`);
+});
 
-https.createServer(options, app).listen(8080);
+// https.createServer(options, app).listen(8080);
