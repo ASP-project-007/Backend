@@ -27,7 +27,7 @@ model Products {
   prodName  String
   prodDesc  String
   prodPrice Float
-  images    String   @default("NA")
+  images    String   @default("NA") 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   seller    Seller   @relation(fields: [sellerId], references: [id])
