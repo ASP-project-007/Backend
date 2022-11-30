@@ -30,6 +30,9 @@ export const ProductsSearch = async (req: Request, res: Response) => {
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        seller: true,
+      },
     });
 
     res.status(200).json(products);
