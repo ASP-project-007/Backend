@@ -15,6 +15,7 @@ export const ProductsSearch = async (req: Request, res: Response) => {
     // the search is case insensitive
     // the search is partial
     // the search is lat lng 
+    // trigger code pipeline in aws
     
     const { name, lat, lng } = req.body;
 
